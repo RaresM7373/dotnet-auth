@@ -1,14 +1,15 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using net_jobs.Models;
 
 namespace net_jobs.Pages;
 
 public class Login : PageModel
 {
-    private readonly SignInManager<IdentityUser> _signInManager;
+    private readonly SignInManager<ApplicationUser> _signInManager;
 
-    public Login(SignInManager<IdentityUser> signInManager)
+    public Login(SignInManager<ApplicationUser> signInManager)
     {
         _signInManager = signInManager;
     }

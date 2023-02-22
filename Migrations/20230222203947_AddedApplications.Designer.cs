@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using net_jobs.Data;
 
@@ -10,9 +11,11 @@ using net_jobs.Data;
 namespace netjobs.Migrations
 {
     [DbContext(typeof(NetJobsDbContext))]
-    partial class NetJobsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230222203947_AddedApplications")]
+    partial class AddedApplications
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

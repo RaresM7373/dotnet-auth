@@ -1,5 +1,6 @@
+@using net_jobs.Models
 @using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager
+@inject SignInManager<ApplicationUser> SignInManager
 
 <!DOCTYPE html>
 <html lang="en">
@@ -47,7 +48,7 @@
                         </i><span>Home</span>
                     </a>
                     <a
-                        asp-page="/Admin/Compaines"
+                        asp-page="/Admin/Companies"
                         class="list-group-item list-group-item-action py-2 ripple">
                         <i class="fas fa-building me-3"></i>
                         <span>Companies</span>
@@ -61,6 +62,11 @@
                         asp-page="/Admin/Jobs"
                         class="list-group-item list-group-item-action py-2 ripple">
                         <i class="fas fa-chart-pie fa-fw me-3"></i><span>Jobs</span>
+                    </a>
+                    <a
+                        asp-page="/Admin/CreateJob"
+                        class="list-group-item list-group-item-action py-2 ripple">
+                        <i class="fas fa-plus me-3"></i> <span>Add job</span>
                     </a>
                     <a
                         asp-page="/Admin/Applications"

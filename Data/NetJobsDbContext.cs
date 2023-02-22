@@ -11,4 +11,6 @@ public class NetJobsDbContext : IdentityDbContext
     }
 
     public DbSet<Company> Companies { get; set; }
+    public DbSet<Job> Jobs { get; set; }
+    public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 }

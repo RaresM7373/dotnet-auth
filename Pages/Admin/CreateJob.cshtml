@@ -1,0 +1,64 @@
+@page
+@model CreateJob
+
+@{
+    ViewData["Title"] = "Create company";
+    Layout = "Shared/_AdminLayout";
+}
+
+<html>
+<body>
+<div>
+    <div class="row align-items-center">
+        <div class="mx-auto col-10 col-md-8 col-lg-6">
+            <form method="post">
+                <div class="form-group mb-4 mt-4">
+                    <label for="name">Job title:</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Job title..."
+                        asp-for="JobModel.Title"
+                        id="name"/>
+                </div>
+                <div class="form-group mb-4">
+                    <label>Description:</label>
+                    <textarea class="form-control" asp-for="JobModel.Description" placeholder="What is this about... "></textarea>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label for="experience">Experience:</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        id="experience"
+                        placeholder="Experience level ... "
+                        asp-for="JobModel.ExperienceLevel"/>
+                </div>
+
+                <div class="form-group mb-4">
+                    <label for="salary">Anual Salary:</label>
+                    <input
+                        type="number"
+                        class="form-control"
+                        id="salary"
+                        placeholder="125k / year"
+                        asp-for="JobModel.AnualSalary"/>
+                </div>
+                <div class="form-group mb-4">
+                    <label class="form-check-label" for="company">Company </label>
+                    <select asp-for="SelectedCompany" asp-items="Model.CompaniesOptions" class="form-control" name="SelectedCompany" id="company">
+
+                    </select>
+                </div>
+
+                <button class=" px-4 rounded-xl text-white py-3 inline-flex items-center justify-center bg-blue-500">Save</button>
+
+            </form>
+            <!-- Form end -->
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

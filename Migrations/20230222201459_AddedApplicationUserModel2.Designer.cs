@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using net_jobs.Data;
 
@@ -10,9 +11,11 @@ using net_jobs.Data;
 namespace netjobs.Migrations
 {
     [DbContext(typeof(NetJobsDbContext))]
-    partial class NetJobsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230222201459_AddedApplicationUserModel2")]
+    partial class AddedApplicationUserModel2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -80,10 +83,6 @@ namespace netjobs.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("longtext");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("varchar(256)");
@@ -134,10 +133,6 @@ namespace netjobs.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
-
-                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -219,38 +214,6 @@ namespace netjobs.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("net_jobs.Models.Application", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("CoverLetter")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("varchar(500)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("JobId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("JobId");
-
-                    b.ToTable("Application");
-                });
-
             modelBuilder.Entity("net_jobs.Models.Company", b =>
                 {
                     b.Property<int>("Id")
@@ -316,13 +279,6 @@ namespace netjobs.Migrations
                     b.ToTable("Jobs");
                 });
 
-            modelBuilder.Entity("net_jobs.Models.ApplicationUser", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
-
-                    b.HasDiscriminator().HasValue("ApplicationUser");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -374,17 +330,6 @@ namespace netjobs.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("net_jobs.Models.Application", b =>
-                {
-                    b.HasOne("net_jobs.Models.Job", "Job")
-                        .WithMany("Applications")
-                        .HasForeignKey("JobId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Job");
-                });
-
             modelBuilder.Entity("net_jobs.Models.Job", b =>
                 {
                     b.HasOne("net_jobs.Models.Company", "Company")
@@ -399,11 +344,6 @@ namespace netjobs.Migrations
             modelBuilder.Entity("net_jobs.Models.Company", b =>
                 {
                     b.Navigation("Jobs");
-                });
-
-            modelBuilder.Entity("net_jobs.Models.Job", b =>
-                {
-                    b.Navigation("Applications");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using net_jobs.Interfaces;
+using net_jobs.Models;
 
 namespace net_jobs.Services;
 
@@ -7,11 +8,11 @@ public class RoleService : IRoleService
 {
     private readonly IConfiguration _configuration;
     private readonly RoleManager<IdentityRole> _roleManager;
-    private readonly UserManager<IdentityUser> _userManager;
+    private readonly UserManager<ApplicationUser> _userManager;
 
 
     public RoleService(RoleManager<IdentityRole> roleManager, IConfiguration configuration,
-        UserManager<IdentityUser> userManager)
+        UserManager<ApplicationUser> userManager)
     {
         _userManager = userManager;
         _roleManager = roleManager;
@@ -35,7 +36,7 @@ public class RoleService : IRoleService
 
         if (!string.IsNullOrEmpty(userEmail) && !string.IsNullOrEmpty(userPassword))
         {
-            var powerUser = new IdentityUser
+            var powerUser = new ApplicationUser
             {
                 UserName = userEmail,
                 Email = userEmail

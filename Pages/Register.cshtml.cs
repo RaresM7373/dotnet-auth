@@ -8,11 +8,11 @@ namespace net_jobs.Pages;
 public class Register : PageModel
 {
     private readonly RoleManager<IdentityRole> _roleManager;
-    private readonly SignInManager<IdentityUser> _signInManager;
-    private readonly UserManager<IdentityUser> _userManager;
+    private readonly SignInManager<ApplicationUser> _signInManager;
+    private readonly UserManager<ApplicationUser> _userManager;
 
 
-    public Register(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager,
+    public Register(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager,
         RoleManager<IdentityRole> roleManager)
     {
         _userManager = userManager;
@@ -32,7 +32,7 @@ public class Register : PageModel
         if (!ModelState.IsValid) return Page();
 
 
-        var user = new IdentityUser
+        var user = new ApplicationUser
         {
             UserName = Model.Email,
             Email = Model.Email

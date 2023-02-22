@@ -10,4 +10,6 @@ public class Company
     [Required] public int Employees { get; set; }
     [Required] public string Description { get; set; }
     public bool Hiring { get; set; } = true;
+
+    public List<Job> Jobs { get; set; }
 }

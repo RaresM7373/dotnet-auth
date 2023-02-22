@@ -1,0 +1,36 @@
+@page
+@model Companies
+
+
+@{
+    ViewData["Title"] = "Companies";
+    Layout = "Shared/_AdminLayout";
+}
+<html>
+<body>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Address</th>
+        <th scope="col">Employees</th>
+        <th scope="col">Description</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var company in Model.CompaniesList)
+    {
+        <tr>
+            <th scope="row">@company.Id</th>
+            <th scope="row">@company.Name</th>
+            <th scope="row">@company.Address</th>
+            <th scope="row">@company.Employees</th>
+            <th scope="row">@company.Description</th>
+        </tr>
+    }
+    </tbody>
+</table>
+</body>
+</html>
