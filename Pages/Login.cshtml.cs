@@ -15,6 +15,7 @@ public class Login : PageModel
 
     [BindProperty] public Models.Login Model { get; set; }
 
+
     public void OnGet()
     {
     }
@@ -23,12 +24,14 @@ public class Login : PageModel
     {
         if (!ModelState.IsValid) return Page();
 
+
         var result = await _signInManager.PasswordSignInAsync(Model.Email, Model.Password, Model.RememberMe, false);
+
 
         if (result.Succeeded)
             return string.IsNullOrWhiteSpace(returnUrl) ? RedirectToPage("Index") : RedirectToPage(returnUrl);
 
-        ModelState.AddModelError("", "Username or password are incorrect");
+        ModelState.AddModelError("password", "Username or password incorrect");
         return Page();
     }
 }

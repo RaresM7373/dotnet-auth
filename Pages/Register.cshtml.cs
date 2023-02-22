@@ -7,14 +7,17 @@ namespace net_jobs.Pages;
 
 public class Register : PageModel
 {
+    private readonly RoleManager<IdentityRole> _roleManager;
     private readonly SignInManager<IdentityUser> _signInManager;
     private readonly UserManager<IdentityUser> _userManager;
 
 
-    public Register(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+    public Register(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager,
+        RoleManager<IdentityRole> roleManager)
     {
         _userManager = userManager;
         _signInManager = signInManager;
+        _roleManager = roleManager;
     }
 
     [BindProperty] public RegisterModel Model { get; set; }
@@ -40,11 +43,19 @@ public class Register : PageModel
 
         if (result.Succeeded)
         {
-            await _signInManager.SignInAsync(user, false);
-            return RedirectToPage("Index");
+            var role = string.IsNullOrEmpty(Model.Role) ? "Admin" : Model.Role;
+
+            var roleExists = await _roleManager.RoleExistsAsync(role);
+            if (!roleExists) await _roleManager.CreateAsync(new IdentityRole(role));
+            var roleResult = await _userManager.AddToRoleAsync(user, role);
+
+            if (roleResult.Succeeded)
+            {
+                await _signInManager.SignInAsync(user, false);
+                return RedirectToPage("Index");
+            }
         }
 
-        foreach (var error in result.Errors) ModelState.AddModelError("", error.Description);
 
         return Page();
     }

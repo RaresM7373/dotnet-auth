@@ -12,56 +12,36 @@
     <link rel="stylesheet" href="~/net_jobs.styles.css" asp-append-version="true"/>
 </head>
 <body>
-<header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-        <div class="container">
-            <a class="navbar-brand" asp-area="" asp-page="/Index">net_jobs</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                @if (SignInManager.IsSignedIn(User))
-                {
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item" style="margin-left: auto">
-                            <a class="btn btn-outline-danger" asp-area="" asp-page="/Logout">Logout</a>
-                        </li>
-                    </ul>
-                }
-                else
-                {
-                    <ul class="navbar-nav d-flex justify-content-end flex-grow-1">
-                        <li class="nav-item">
-                            <a asp-page="/Login" class="btn btn-primary">Login</a>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-page="/Register" class="btn ">Register</a>
-                        </li>
-                    </ul>
-                }
 
-            </div>
+<div class="w-full border-b border-gray-100 px-4">
+    <div class="flex flex-row items-center max-w-7xl mx-auto justify-between  py-4">
+        <div>
+            <h1 class="text-3xl font-black tracking-widest text-blue-500">NET Jobs</h1>
         </div>
-    </nav>
-</header>
+        @if (User.IsInRole("Admin"))
+        {
+            <div>
+                <a asp-area="" asp-page="/Admin/Index" class=" px-4 rounded-xl text-white py-3 inline-flex items-center justify-center bg-blue-500">Admin</a>
+            </div>
+        }
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <div class="hidden sm:grid grid-cols-1 place-items-end ">
+                <div>
+                    <a asp-area="" asp-page="/Logout" class=" px-4 rounded-xl text-white py-3 inline-flex items-center justify-center bg-red-500">Logout</a>
+                </div>
+            </div>
+        }
+    </div>
+</div>
 <div class="container">
     <main role="main" class="pb-3">
+        <!--Main Navigation-->
+
         @RenderBody()
     </main>
 </div>
 
-<footer class="border-top footer text-muted">
-    <div class="container">
-        &copy; 2023 - net_jobs - <a asp-area="" asp-page="/Privacy">Privacy</a>
-    </div>
-</footer>
 
 <script src="~/lib/jquery/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>

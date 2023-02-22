@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using net_jobs.Data;
+using net_jobs.Interfaces;
+using net_jobs.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +15,8 @@ builder.Services.AddDbContext<NetJobsDbContext>(
     options => options.UseMySql(connString, ServerVersion.AutoDetect(connString))
 );
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<NetJobsDbContext>();
+builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<NetJobsDbContext>();
 
 builder.Services.ConfigureApplicationCookie(config =>
 {
@@ -21,6 +24,7 @@ builder.Services.ConfigureApplicationCookie(config =>
     config.AccessDeniedPath = "/Login";
 });
 
+builder.Services.AddScoped<IRoleService, RoleService>();
 
 var app = builder.Build();
 
