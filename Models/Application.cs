@@ -17,7 +17,7 @@ public class Application
 
     [Required] [StringLength(500)] public string CoverLetter { get; set; }
 
-    [Required] public int UserId { get; set; }
+    public string UserId { get; set; }
 
     public int JobId { get; set; }
     public Job Job { get; set; }

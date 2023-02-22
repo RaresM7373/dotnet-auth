@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -9,10 +10,12 @@ namespace net_jobs.Pages.Admin;
 public class CreateJob : PageModel
 {
     private readonly NetJobsDbContext _context;
+    private readonly UserManager<ApplicationUser> _userManager;
 
-    public CreateJob(NetJobsDbContext context)
+    public CreateJob(NetJobsDbContext context, UserManager<ApplicationUser> userManager)
     {
         _context = context;
+        _userManager = userManager;
     }
 
     [BindProperty] public int SelectedCompany { get; set; }
@@ -40,7 +43,6 @@ public class CreateJob : PageModel
         await _context.Jobs.AddAsync(job);
 
         var company = await _context.Companies.FindAsync(SelectedCompany);
-        Console.WriteLine(company.Name);
         company.Jobs.Add(job);
 
 

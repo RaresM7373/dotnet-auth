@@ -20,5 +20,6 @@ public class IndexModel : PageModel
 
     public void OnGet()
     {
+        Jobs = _context.Jobs.ToList();
     }
 }
